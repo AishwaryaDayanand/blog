@@ -9,6 +9,9 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+import django_heroku
+import dj_database_url
+from decouple import config
 
 from pathlib import Path
 
@@ -50,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'demo.urls'
@@ -116,10 +120,11 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+STATICFILES_DIRS = BASE_DIR/'static'
 STATIC_URL = '/static/'
 
 MEDIA_ROOT =  BASE_DIR / 'media'
@@ -136,3 +141,5 @@ EMAIL_HOST_PASSWORD = 'rkvpvzbrumxzboky'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'Django app password reset mail'
+
+django_heroku.settings(locals())
