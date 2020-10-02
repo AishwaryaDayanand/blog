@@ -1,0 +1,17 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+{% for i in posts %}
+
+
+<div class="about_page">
+    <p>the blog post {{i.title}} has been uploaded by {{i.authour}} on {{i.date_posted}} </p>
+
+</div>
+    
+
+
+{% endfor %}
+    
+{% endblock content %}
+

@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , shrink-to-fit=no">
+    {% if titlee %}
+    <title>Django-blog-{{title}} </title>
+    {% else %}
+    <title>Django-blog</title>
+    {% endif %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %} ">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+  
+</head>
+<body>
+  
+    <header class="site-header">
+
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+          <div class="container">       
+            <a style="color: rgba(203, 202, 226, 0.609); font-size: 30px; " class="navbar-brand mr-4 " href="/">DjangoWorld</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarToggle">
+              <div class="navbar-nav mr-auto">
+                <a class="nav-item nav-link text-dark" href="{% url 'blog-home' %} ">Home</a>
+                <!-- <a class="nav-item nav-link" href="/about">About</a> -->
+              </div>
+              <!-- Navbar Right Side -->
+              <div class="navbar-nav">
+                {% if user.is_authenticated %}
+                <a class="nav-item nav-link text-dark" href="{% url 'logout' %}">Logout</a>
+                <a class="nav-item nav-link text-dark" href="{% url 'profile' %}">Profile</a>
+                <a class="nav-item nav-link text-dark" href="{% url 'post-create' %}">Add Post</a>
+
+                {% else %}
+                <a class="nav-item nav-link text-dark" href="{% url 'login' %}">Login</a>
+                <a class="nav-item nav-link text-dark" href="{% url 'register' %}">Register</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          
+        </nav>
+      </header>
+    <br>
+    <br>
+    <br>
+
+      <main role="main" class="container">
+        <div class="row">
+          <div class="col-md-8">
+            {% if messages %}
+              {% for message in messages %}
+              
+                <div class="alert alert-{{message.tags}} " > {{message}} </div>
+
+              {% endfor %}
+            {% endif %}
+            {% block content %}
+            {% endblock %}
+          </div>
+          <!-- <div class="col-md-4">
+            <div class="content-section">
+              <h3>Sidebar</h3>
+              <p class='text-muted'>You can put any information Later
+                <div class="list-group">
+                  <a href="https://timesofindia.indiatimes.com/blogs/" class="list-group-item list-group-item-light" id="latest">Latest Posts</a>
+                  <a href="##" class="list-group-item list-group-item-light">Announcements</a>
+                  <a href="##" class="list-group-item list-group-item-light">Calenders</a>
+                  <a href="##" class="list-group-item list-group-item-light">Etc</a>
+                </div>
+              </p>
+            </div>
+          </div> -->
+        </div>
+      </main>
+  
+<script>
+      $('a#latest').attr('target','_blank' )
+
+</script>
+</body>
+</html>
